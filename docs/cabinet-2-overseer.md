@@ -121,6 +121,8 @@ The developer gives these in the overseer session. `<alias>` may also be `all` w
 | `stop <alias>` | Sends `STOP`, reports the `STOPPED` reply. |
 | `resume <alias>` | Sends `RESUME`. |
 | `tell <alias> <text>` | Sends `TASK <text>`, or `NOTE <text>` if it only informs. Two ministers on one project: one `tell` each, and each also gets a `NOTE` naming what the other was told. |
+| `spawn <session> on <machine> [folder] [new\|resume] [artN,…]` | Sends `SPAWN session …` to `daemon-<machine>` ([Cabinet 0](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH), The daemon), reports the `SPAWNED` or `FAILED` reply. Follow it with `assign` to make it a minister. |
+| `machines` | Sends `STATUS` to every daemon, shows one block per machine, and marks the sessions that are ministers. |
 | `ledger` | Shows the LEDGER. |
 | `budget` | Runs Budget now and shows its table. |
 

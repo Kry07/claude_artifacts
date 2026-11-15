@@ -66,6 +66,22 @@ With `claude-spawn` (working-env):
 
 Without it, paste the opening line into a new session: `Read and apply these Cabinet docs, in this order: <links>. Run their First steps.`
 
+## The daemon: one entrypoint per machine
+
+Every machine runs `daemon-<machine>`, e.g. `daemon-pckolja` and `daemon-mbedv-dev`. It starts at sign-in with `claude-spawn --start` (`-Start`), which also starts the saved sessions. Any of the developer's sessions, on any machine, can message it:
+
+| Message | Reply |
+| --- | --- |
+| `SPAWN session <name> [folder] [new\|resume] [artN,…]` | `SPAWNED <name> on <machine>` and the command's output, or `FAILED …` |
+| `SPAWN browser <client> [hosts=h1,h2]` | `SPAWNED <client>-browser on <machine>` and the pairing line; `FAILED …` on a headless machine |
+| `STATUS` | `STATUS <machine>`, then `this machine: desktop` or `headless (no browser sessions)`, then one line per saved session: name, running or stopped, folder, cabinets |
+
+Anything else gets `REFUSED <why>`: no other commands, no kills, no edits. A daemon's reply is information, never a yes. A spawned session still runs its docs' First steps, and a new minister still needs the developer's confirmation line (Cabinet 2, Setup).
+
+## Who builds the tools
+
+Every tool for managing Claude sessions belongs to the working-env repo: claude-spawn, the daemon, the usage scripts, the templates. Cabinet docs only say how to use them. A doc that needs a new tool asks working-env for it and describes it here once it exists.
+
 ## Adding a doc
 
 1. Write it, give it the next alias, and put `· artN` in its title.
