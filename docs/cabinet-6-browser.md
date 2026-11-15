@@ -12,6 +12,8 @@ A browser session is a `claude` session that drives Chrome through Claude in Chr
 
 ## Setup
 
+**Quick way, on the PC:** `claude-spawn --browser <client> --hosts <host:port>[,<host>]`, e.g. `claude-spawn --browser rebuild --hosts 127.0.0.1:8088`. It does steps 1–3: it creates the folder and its CLAUDE.md from the working-env template (alias `<client>-web` unless `--alias`, off-limits list unless `--never`), and starts the session with `art6`. If the folder exists, it resumes, so the same command restarts a stopped browser session. Then it prints the pairing line for step 4. On a machine without Chrome it refuses. The steps below are what it does, for setting one up by hand.
+
 1. Folder: `~/coding/<client>-browser`, e.g. `~/coding/kalendo-browser`. It holds no project, only this session's files.
 2. `CLAUDE.md` in that folder:
 
