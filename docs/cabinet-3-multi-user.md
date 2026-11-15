@@ -2,7 +2,7 @@
 
 ## Start here
 
-Two or more people work on one project. Each person runs [Cabinet 1 – Solo](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) sessions, with or without an overseer ([Cabinet 2 – Overseer](https://claude.ai/artifact/H18ZwWsfXdearHdikraY6a)); both apply unchanged. This doc applies when the project `CLAUDE.md` says `People: several`. It adds area and branch rules, the envoy role, the embassy repo, requests, replies, proposals, four commands. "You" = the session reading this; "your developer" = the person it works for.
+Two or more people work on one project. Each person runs [Cabinet 1 – Solo](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) or [Cabinet 5 – Review Flow](https://claude.ai/artifact/HG1zvy4LqoKS2TsrZp3Kv7) sessions, with or without an overseer ([Cabinet 2 – Overseer](https://claude.ai/artifact/H18ZwWsfXdearHdikraY6a)); both apply unchanged. This doc applies when the project `CLAUDE.md` says `People: several`. It adds area and branch rules, the envoy role, the embassy repo, requests, replies, proposals, four commands. "You" = the session reading this; "your developer" = the person it works for.
 
 ## Shared project
 
@@ -143,3 +143,7 @@ A person leaves:
 4. Unanimity: the leaver's envoy edits README.md, moves all its entries to its archive files, deletes each own outbox file with a `go` per file, pushes. Each other envoy archives and deletes its outbox to the leaver the same way. LEDGER Needs you items with the leaver: removed.
 5. The host removes the leaver's access to both repos.
 6. Last person: no proposal; the host sets `People: one` in the project `CLAUDE.md` and keeps both repos.
+
+## Cabinet family
+
+All Cabinet docs, their aliases (art0–art6) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 or art5), plus art2, art3, art4 or art6 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`.

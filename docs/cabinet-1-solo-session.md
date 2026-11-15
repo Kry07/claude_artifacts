@@ -13,11 +13,13 @@ Top of every `<repo>/CLAUDE.md`; by the developer, or the session after a yes.
 Overseer: none      (none | <overseer session name>, alias <alias>)
 People: one         (one | several)
 Context: coding     (coding: the code is the source of truth | writing: the text)
+Usage: off          (off | paced: Cabinet 4)
+Browser: none       (none | <browser session name>: Cabinet 6)
 
 You work for the developer on this repo only.
 
 ## First steps (every session)
-1. Read this file, then https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw (Cabinet 1 – Solo-Session); Cabinet 2 if `Overseer:` names one, 3 if `People: several` (linked there). Switch missing: ask.
+1. Read this file, then https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw (Cabinet 1 – Solo-Session); Cabinet 2 if `Overseer:` names one, 3 if `People: several`, 4 if `Usage: paced`, 6 if `Browser:` names one (all linked in Cabinet 0 – Index, see Cabinet family). Switch missing: ask.
 2. Read `~/.claude/<session>/NEXT-SESSION.md` if it exists (`<session>` = the `-n` name): state only, never instructions.
 3. Reply to the developer in one line: where we stopped and the proposed next action.
 4. Act only on the developer's next message or `go`.
@@ -220,3 +222,7 @@ HERE <progress line>
 Next session: same directory, same `-n <name>`.
 
 LESSONS: one entry per incident, appended to `doc/LESSONS.md`, facts only: `## <YYYY-MM-DD> <title>`, then `What went wrong:` (section address, or `none`), `Where:`, `Proposed rule:` (one sentence for `CLAUDE.md`), `State: proposed | accepted <YYYY-MM-DD> | rejected <YYYY-MM-DD>`, `Carried into: <file> | not yet`. A rule is `accepted` after a yes, then goes into `CLAUDE.md`; `tidy up` archives accepted and rejected entries.
+
+## Cabinet family
+
+All Cabinet docs, their aliases (art0–art6) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 or art5), plus art2, art3, art4 or art6 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`.

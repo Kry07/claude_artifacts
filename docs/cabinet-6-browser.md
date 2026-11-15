@@ -36,7 +36,7 @@ Read https://claude.ai/artifact/HTQBenjZ84s8TCZ2Gwkkw7 (Cabinet 6 – Browser) a
 3. Start it with Chrome enabled, e.g. `claude-spawn kalendo-browser ~/coding/kalendo-browser new art6` (claude-spawn starts it with `--chrome`), or `claude --chrome -n kalendo-browser`. A cheaper model is enough for most tests: `--model sonnet`.
 4. **Pairing, confirmed by the developer in both sessions.** A session never takes another session's word for it.
    - In the browser session, the `Paired with:` line does it.
-   - In the client session, the developer types once: `Your browser session is <name>. Send UI tests to it per Cabinet 6 – Browser: https://claude.ai/artifact/HTQBenjZ84s8TCZ2Gwkkw7`.
+   - In the client session, the `Browser: <name>` switch in its CLAUDE.md does it, or the developer types once: `Your browser session is <name>. Send UI tests to it per Cabinet 6 – Browser: https://claude.ai/artifact/HTQBenjZ84s8TCZ2Gwkkw7`.
 5. The browser session sends `READY <alias> browser ok|broken` to its client. The client answers `PING` or its first `TEST`.
 
 ## Rules
@@ -125,13 +125,6 @@ The developer types these in the browser session.
 | results | `<browser folder>/results/<id>/` (`result.md`, gif, screenshots) | browser session |
 | log | `<browser folder>/LOG.md`, one line per message sent or received | browser session |
 
-## Aliases
+## Cabinet family
 
-| Alias | Doc |
-| --- | --- |
-| art1 | [Cabinet 1 – Solo-Session](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) |
-| art2 | [Cabinet 2 – Overseer](https://claude.ai/artifact/H18ZwWsfXdearHdikraY6a) |
-| art3 | [Cabinet 3 – Multi-user](https://claude.ai/artifact/Vk5nkKHnrXqFhwrRg7r3MM) |
-| art4 | [Cabinet 4 – Fast Forward](https://claude.ai/artifact/7c9zDiopSxQrD4jx9bhdk1) |
-| art5 | [Cabinet 5 – Review Flow](https://claude.ai/artifact/HG1zvy4LqoKS2TsrZp3Kv7) |
-| art6 | Cabinet 6 – Browser (this doc) |
+All Cabinet docs, their aliases (art0–art6) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 or art5), plus art2, art3, art4 or art6 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`.

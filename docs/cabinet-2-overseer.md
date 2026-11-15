@@ -197,9 +197,9 @@ Account: 5h <n>% reset <HH:MM>, week <n>%   Limits: day <n> night <n> week <n>
 | LEDGER | `<overseer folder>/LEDGER.md` | overseer | overwritten |
 | LOG | `<overseer folder>/LOG.md` | overseer | append; older than 7 days → `<overseer folder>/archive/` on `tidy up` |
 | spend data | `~/.claude/usage/sessions/<session id>.json`, `.window` | status line | overwritten |
+| minister records | Cabinet 1 or 5, Where files live | each minister | as there |
 
 The overseer keeps its files in its own folder, so it never needs a read or write outside it (no permission prompts). It never reads the spend files directly; ministers send their SPEND line.
-| minister records | Cabinet 1 or 5, Where files live | each minister | as there |
 
 The overseer reads only its own files and the messages it receives. It never reads a minister's repo to judge it; it asks. Two sessions in one repo (e.g. the overseer builds and a minister verifies on another machine) share it only through git, and each push needs the developer's yes.
 
@@ -213,3 +213,7 @@ The overseer reads only its own files and the messages it receives. It never rea
 ## Two people
 
 With `People: several` ([Cabinet 3 – Multi-User](https://claude.ai/artifact/Vk5nkKHnrXqFhwrRg7r3MM)), each person's overseer is that person's envoy. Without an overseer, the envoy is the person's sole session.
+
+## Cabinet family
+
+All Cabinet docs, their aliases (art0–art6) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 or art5), plus art2, art3, art4 or art6 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`.
