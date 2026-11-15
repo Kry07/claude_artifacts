@@ -27,7 +27,7 @@ Read https://claude.ai/artifact/HTQBenjZ84s8TCZ2Gwkkw7 (Cabinet 6 – Browser) a
 ## First steps (every session)
 1. Read this file, then Cabinet 6.
 2. Load the Claude in Chrome tools and check the browser answers (tabs context).
-3. Reply in one line: paired with, browser ok or not, test hosts.
+3. Reply in one line: paired with, browser ok or not, test hosts. Then send `READY <alias> browser ok|broken` to your client.
 4. Act only on the developer's next message or a TEST from your client.
 ```
 
