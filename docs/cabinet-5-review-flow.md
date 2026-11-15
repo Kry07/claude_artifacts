@@ -1,4 +1,4 @@
-# Cabinet 5 – Review Flow (v1)
+# Cabinet 5 – Review Flow (v1) · art5
 
 Version 1, 2026-11-15. Built from one successful solo session (Kalendo, "TaskDialog-Neugestaltung", 41 prompts over 4.7 days). It runs alongside [Cabinet 1 – Solo-Session](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) so the two can be compared; neither replaces the other. It covers one developer with one session.
 
@@ -168,7 +168,7 @@ It starts only on the developer's explicit words, and only for parts whose specs
 
 ## Real-environment check
 
-When the result has a UI, the session writes a ready prompt for a browser session (Claude in Chrome): what to open, what to click, and what to report. The developer pastes the result back, and every finding becomes a fix item. If the browser tool is unstable, say so and fall back to the developer's own test.
+When the result has a UI, the session writes a ready prompt for a browser session (Claude in Chrome): what to open, what to click, and what to report. The developer pastes the result back, and every finding becomes a fix item. If the browser tool is unstable, say so and fall back to the developer's own test. With a paired browser session ([Cabinet 6 – Browser](https://claude.ai/artifact/HTQBenjZ84s8TCZ2Gwkkw7), art6), send it a TEST brief instead and take its RESULT directly; the developer is needed only for logins and NEED items.
 
 ## Scope cuts
 

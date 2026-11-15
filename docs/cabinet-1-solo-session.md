@@ -1,4 +1,4 @@
-# Cabinet 1 – Solo-Session
+# Cabinet 1 – Solo-Session · art1
 
 ## Start here
 
