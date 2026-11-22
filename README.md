@@ -31,3 +31,12 @@ Working copies of the Cabinet docs, the rules Claude Code sessions follow. They 
 See [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0, [docs/cabinet-0-index.md](docs/cabinet-0-index.md)): the rules for combining, who works with whom, the switches, typical setups and how to start sessions with `claude-spawn`. Every other doc links to it, so a new doc changes only the index, this README and `cabinets.tsv` in working-env.
 
 Imported 2026-11-10 from the Markdown export of each doc (revisions 50, 50 and 39). Synced again 2026-11-22 from the published docs: art2 and art3 had newer text, art7 was added.
+
+## Keeping repo and published docs in sync
+
+The published docs are the source; the files in `docs/` are copies.
+
+- `docs/checksums.md5` holds the md5 of each copy (`md5sum -c docs/checksums.md5` checks the files).
+- Each published doc ends with a stamp line, `Repo sync: claude_artifacts commit <id>, <date>`: the commit that last pulled it into the repo. The stamp is not part of the copies or the sums.
+- To pull: export each doc as Markdown to `artN.md`, then run `uv run tools/docsum.py check art*.md`. It strips the stamp, compares the md5 and prints `same` or `CHANGED`. `pull` instead of `check` writes the changed ones to `docs/` and updates the sums. Commit, then set the stamp in the changed docs to that commit.
+- When a copy is edited in the repo first, publish the same edit, run `uv run tools/docsum.py sums`, commit, and stamp the doc.
