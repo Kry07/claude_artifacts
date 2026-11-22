@@ -36,7 +36,7 @@ Imported 2026-11-10 from the Markdown export of each doc (revisions 50, 50 and 3
 
 The published docs are the source; the files in `docs/` are copies.
 
-- `docs/checksums.md5` holds the md5 of each copy (`md5sum -c docs/checksums.md5` checks the files).
+- `docs/checksums.md5` holds the md5 of each copy (`cd docs && md5sum -c checksums.md5` checks the files).
 - Each published doc ends with a stamp line, `Repo sync: claude_artifacts commit <id>, <date>`: the commit that last pulled it into the repo. The stamp is not part of the copies or the sums.
 - To pull: export each doc as Markdown to `artN.md`, then run `uv run tools/docsum.py check art*.md`. It strips the stamp, compares the md5 and prints `same` or `CHANGED`. `pull` instead of `check` writes the changed ones to `docs/` and updates the sums. Commit, then set the stamp in the changed docs to that commit.
 - When a copy is edited in the repo first, publish the same edit, run `uv run tools/docsum.py sums`, commit, and stamp the doc.
