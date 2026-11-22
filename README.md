@@ -34,9 +34,10 @@ Imported 2026-11-10 from the Markdown export of each doc (revisions 50, 50 and 3
 
 ## Keeping repo and published docs in sync
 
-The published docs are the source; the files in `docs/` are copies.
+The files in `docs/` are byte-for-byte copies of the published docs (their Markdown export).
 
-- `docs/checksums.md5` holds the md5 of each copy (`cd docs && md5sum -c checksums.md5` checks the files).
-- Each published doc ends with a stamp line, `Repo sync: claude_artifacts commit <id>, <date>`: the commit that last pulled it into the repo. The stamp is not part of the copies or the sums.
-- To pull: export each doc as Markdown to `artN.md`, then run `uv run tools/docsum.py check art*.md`. It strips the stamp, compares the md5 and prints `same` or `CHANGED`. `pull` instead of `check` writes the changed ones to `docs/` and updates the sums. Commit, then set the stamp in the changed docs to that commit.
-- When a copy is edited in the repo first, publish the same edit, run `uv run tools/docsum.py sums`, commit, and stamp the doc.
+- `docs/checksums.md5` holds the md5 of each copy (`cd docs && md5sum -c checksums.md5` checks the files). A different md5 on an export means the published doc changed.
+- Each doc ends with a stamp line, ``Repo sync: `s-xxxxxx` ``. `docs/sync-log.tsv` lists every stamp with its date, the docs it went into and a short note. A doc keeps its stamp until its text changes again, so the stamp says when it was last synced.
+- To pull: export each doc as Markdown to `artN.md` and run `uv run tools/docsum.py check art*.md`. It prints `same` or `CHANGED` per doc, and warns about a stamp that is not in the log.
+- To sync the changed docs: `uv run tools/docsum.py stamp "<note>"` adds a new stamp to the log (fill in its docs column). Put that stamp line into each changed published doc, export them again, run `uv run tools/docsum.py pull art*.md` (writes them to `docs/` and updates the sums), and commit.
+- A change made in the repo first goes the same way: publish the edit, stamp, export, pull, commit.

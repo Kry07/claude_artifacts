@@ -1,32 +1,29 @@
 """Compare exported Cabinet docs with the repo copies.
 
-Each published doc ends with a stamp line, "Repo sync: claude_artifacts commit <id>, <date>".
-The stamp only lives in the published doc. This script strips it, so the md5 of an
-export matches docs/checksums.md5 as long as the doc text itself is unchanged.
+The repo copies in docs/ are byte-for-byte copies of the published docs. Each ends with a
+stamp line, "Repo sync: `s-xxxxxx`"; docs/sync-log.tsv says when each stamp was made and why.
 
   uv run tools/docsum.py check <export.md>...   compare exports with docs/checksums.md5
   uv run tools/docsum.py pull  <export.md>...   write changed exports to docs/ and update the sums
-  uv run tools/docsum.py sums                   rewrite docs/checksums.md5 from docs/*.md
+  uv run tools/docsum.py sums                   rewrite docs/checksums.md5 from docs/cabinet-*.md
+  uv run tools/docsum.py stamp <note>           add a new stamp to the log and print it
 
 An export is matched to its repo file by the first number in its file name, so name
 exports artN.md (art2.md goes to docs/cabinet-2-*.md).
 """
 
+import datetime
 import hashlib
 import re
+import secrets
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 DOCS = REPO / "docs"
 SUMS = DOCS / "checksums.md5"
-STAMP = re.compile(rb"\n*Repo sync: [^\n]*\n*\Z")
-
-
-def strip(data: bytes) -> bytes:
-    """Remove the trailing stamp paragraph; the repo copies end with one newline."""
-    out = STAMP.sub(b"\n", data)
-    return out if out.endswith(b"\n") else out + b"\n"
+LOG = DOCS / "sync-log.tsv"
+STAMP = re.compile(rb"Repo sync: `(s-[0-9a-f]{6})`\n?\Z")
 
 
 def md5(data: bytes) -> str:
@@ -47,6 +44,12 @@ def write_sums() -> None:
     SUMS.write_text("\n".join(lines) + "\n", newline="\n")
 
 
+def logged_stamps() -> set[str]:
+    if not LOG.exists():
+        return set()
+    return {line.split("\t", 1)[0] for line in LOG.read_text(encoding="utf-8").splitlines()[1:] if line}
+
+
 def repo_file(export: Path) -> Path:
     m = re.search(r"(\d+)", export.stem)
     if not m:
@@ -57,20 +60,36 @@ def repo_file(export: Path) -> Path:
     return hits[0]
 
 
+def new_stamp(note: str) -> None:
+    known = logged_stamps()
+    stamp = f"s-{secrets.token_hex(3)}"
+    while stamp in known:
+        stamp = f"s-{secrets.token_hex(3)}"
+    if not LOG.exists():
+        LOG.write_text("stamp\tdate\tdocs\tnote\n", encoding="utf-8", newline="\n")
+    with LOG.open("a", encoding="utf-8", newline="\n") as f:
+        f.write(f"{stamp}\t{datetime.date.today()}\t\t{note}\n")
+    print(stamp)
+
+
 def main() -> None:
-    if len(sys.argv) < 2 or sys.argv[1] not in ("check", "pull", "sums"):
+    if len(sys.argv) < 2 or sys.argv[1] not in ("check", "pull", "sums", "stamp"):
         sys.exit(__doc__)
-    cmd, exports = sys.argv[1], [Path(a) for a in sys.argv[2:]]
+    cmd, args = sys.argv[1], sys.argv[2:]
     if cmd == "sums":
         write_sums()
         return
-    sums, changed = read_sums(), 0
-    for export in exports:
-        target = repo_file(export)
-        data = strip(export.read_bytes())
-        stamp = STAMP.search(export.read_bytes())
+    if cmd == "stamp":
+        new_stamp(" ".join(args))
+        return
+    sums, known, changed = read_sums(), logged_stamps(), 0
+    for export in map(Path, args):
+        target, data = repo_file(export), export.read_bytes()
+        m = STAMP.search(data)
+        stamp = m.group(1).decode() if m else "none"
+        note = "" if stamp in known else "  (stamp not in sync-log.tsv)"
         status = "same" if sums.get(target.name) == md5(data) else "CHANGED"
-        print(f"{status:8} {target.name}  {'stamp: ' + stamp.group().strip().decode() if stamp else 'no stamp'}")
+        print(f"{status:8} {target.name}  stamp {stamp}{note}")
         if status == "CHANGED":
             changed += 1
             if cmd == "pull":

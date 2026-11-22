@@ -208,3 +208,5 @@ What a Cabinet session adds on top. None of it removes or weakens a skeleton rul
 3. Decided 2026-11-22: the bootstrap runs with `--keep-user-settings`, as the skeleton's own start check recommends.
 4. Decisions of 2026-11-21 replaced by this rewrite: merge commit (now squash, as the skeleton), `done` only after a separate yes (now `done` on merge through `/ship`), formatter off (now on).
 5. Open: alias art7 and the switch name `Skeleton:`. Recommended: keep both, then add the row to Cabinet 0 – Index and `cabinets.tsv`.
+
+Repo sync: `s-3d0410`
