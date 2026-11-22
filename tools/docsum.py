@@ -1,102 +1,127 @@
-"""Compare exported Cabinet docs with the repo copies.
+"""Versions of the Cabinet docs: compare published exports with the repo, and record new versions.
 
-The repo copies in docs/ are byte-for-byte copies of the published docs. Each ends with a
-stamp line, "Repo sync: `s-xxxxxx`"; docs/sync-log.tsv says when each stamp was made and why.
+The repo copies in docs/ are byte-for-byte copies of the published docs (Markdown export).
+Each doc ends with its version stamp, "Version: `art2.v3`": the alias never changes, the
+number goes up by one for every new text. docs/versions.tsv has one row per version:
+stamp, date, md5 of the whole export (stamp included), kind (rules or wording), note.
 
-  uv run tools/docsum.py check <export.md>...   compare exports with docs/checksums.md5
-  uv run tools/docsum.py pull  <export.md>...   write changed exports to docs/ and update the sums
-  uv run tools/docsum.py sums                   rewrite docs/checksums.md5 from docs/cabinet-*.md
-  uv run tools/docsum.py stamp <note>           add a new stamp to the log and print it
+  uv run tools/docsum.py check <artN.md>...          compare exports with the registry
+  uv run tools/docsum.py next <artN>                 print the next stamp for a doc
+  uv run tools/docsum.py add <kind> <note> <artN.md>... record exports that carry their new stamp
+  uv run tools/docsum.py list                        latest version of each doc
 
-An export is matched to its repo file by the first number in its file name, so name
-exports artN.md (art2.md goes to docs/cabinet-2-*.md).
+check prints per export:
+  current   the stamp is the doc's latest version and the text is that version's
+  EDITED    the text differs from what its stamp was recorded with: edited on claude.ai
+            without a new version. Make one (next, stamp the doc, export, add).
+  OLD       the export carries an older version than the registry's latest
+  UNKNOWN   no stamp, or a stamp the registry does not have
+Exports are matched to docs/cabinet-N-*.md by the first number in their file name.
 """
 
 import datetime
 import hashlib
 import re
-import secrets
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 DOCS = REPO / "docs"
-SUMS = DOCS / "checksums.md5"
-LOG = DOCS / "sync-log.tsv"
-STAMP = re.compile(rb"Repo sync: `(s-[0-9a-f]{6})`\n?\Z")
+REG = DOCS / "versions.tsv"
+STAMP = re.compile(rb"Version: `(art(\d+)\.v(\d+))`\n?\Z")
+KINDS = ("rules", "wording", "initial")
 
 
 def md5(data: bytes) -> str:
     return hashlib.md5(data).hexdigest()
 
 
-def read_sums() -> dict[str, str]:
-    sums = {}
-    if SUMS.exists():
-        for line in SUMS.read_text().splitlines():
-            digest, name = line.split(maxsplit=1)
-            sums[name.lstrip("*")] = digest
-    return sums
+def registry() -> list[dict]:
+    lines = REG.read_text(encoding="utf-8").splitlines()
+    keys = lines[0].split("\t")
+    return [dict(zip(keys, line.split("\t"))) for line in lines[1:] if line]
 
 
-def write_sums() -> None:
-    lines = [f"{md5(p.read_bytes())}  {p.name}" for p in sorted(DOCS.glob("cabinet-*.md"))]
-    SUMS.write_text("\n".join(lines) + "\n", newline="\n")
+def latest() -> dict[str, dict]:
+    """alias -> its row with the highest version"""
+    out = {}
+    for row in registry():
+        alias, v = row["stamp"].split(".v")
+        if alias not in out or int(v) > int(out[alias]["stamp"].split(".v")[1]):
+            out[alias] = row
+    return out
 
 
-def logged_stamps() -> set[str]:
-    if not LOG.exists():
-        return set()
-    return {line.split("\t", 1)[0] for line in LOG.read_text(encoding="utf-8").splitlines()[1:] if line}
-
-
-def repo_file(export: Path) -> Path:
-    m = re.search(r"(\d+)", export.stem)
-    if not m:
-        sys.exit(f"{export}: no doc number in the file name")
-    hits = list(DOCS.glob(f"cabinet-{m.group(1)}-*.md"))
+def repo_file(alias_number: str) -> Path:
+    hits = list(DOCS.glob(f"cabinet-{alias_number}-*.md"))
     if len(hits) != 1:
-        sys.exit(f"{export}: no single docs/cabinet-{m.group(1)}-*.md (found {len(hits)})")
+        sys.exit(f"no single docs/cabinet-{alias_number}-*.md (found {len(hits)})")
     return hits[0]
 
 
-def new_stamp(note: str) -> None:
-    known = logged_stamps()
-    stamp = f"s-{secrets.token_hex(3)}"
-    while stamp in known:
-        stamp = f"s-{secrets.token_hex(3)}"
-    if not LOG.exists():
-        LOG.write_text("stamp\tdate\tdocs\tnote\n", encoding="utf-8", newline="\n")
-    with LOG.open("a", encoding="utf-8", newline="\n") as f:
-        f.write(f"{stamp}\t{datetime.date.today()}\t\t{note}\n")
-    print(stamp)
+def stamp_of(data: bytes):
+    m = STAMP.search(data)
+    return (m.group(1).decode(), m.group(2).decode()) if m else (None, None)
+
+
+def check(exports: list[Path]) -> int:
+    rows = {r["stamp"]: r for r in registry()}
+    top = latest()
+    bad = 0
+    for export in exports:
+        data = export.read_bytes()
+        stamp, n = stamp_of(data)
+        if stamp not in rows:
+            status = "UNKNOWN"
+        elif rows[stamp]["md5"] != md5(data):
+            status = "EDITED"
+        elif top[f"art{n}"]["stamp"] != stamp:
+            status = f"OLD (latest {top[f'art{n}']['stamp']})"
+        else:
+            status = "current"
+        bad += status != "current"
+        print(f"{export.name:12} {stamp or '-':10} {status}")
+    return 1 if bad else 0
+
+
+def add(kind: str, note: str, exports: list[Path]) -> None:
+    if kind not in KINDS:
+        sys.exit(f"kind must be one of {', '.join(KINDS)}")
+    top = latest()
+    rows = []
+    for export in exports:
+        data = export.read_bytes()
+        stamp, n = stamp_of(data)
+        if not stamp:
+            sys.exit(f"{export}: no Version stamp at the end")
+        want = next_stamp(f"art{n}", top)
+        if stamp != want:
+            sys.exit(f"{export}: carries {stamp}, the next version is {want}")
+        repo_file(n).write_bytes(data)
+        rows.append(f"{stamp}\t{datetime.date.today()}\t{md5(data)}\t{kind}\t{note}\n")
+    with REG.open("a", encoding="utf-8", newline="\n") as f:
+        f.writelines(rows)
+    print("".join(rows), end="")
+
+
+def next_stamp(alias: str, top=None) -> str:
+    top = latest() if top is None else top
+    return f"{alias}.v{int(top[alias]['stamp'].split('.v')[1]) + 1}" if alias in top else f"{alias}.v1"
 
 
 def main() -> None:
-    if len(sys.argv) < 2 or sys.argv[1] not in ("check", "pull", "sums", "stamp"):
+    cmd, args = (sys.argv[1], sys.argv[2:]) if len(sys.argv) > 1 else ("", [])
+    if cmd == "check" and args:
+        sys.exit(check([Path(a) for a in args]))
+    if cmd == "next" and len(args) == 1:
+        print(next_stamp(args[0]))
+    elif cmd == "add" and len(args) >= 3:
+        add(args[0], args[1], [Path(a) for a in args[2:]])
+    elif cmd == "list":
+        for alias, row in sorted(latest().items(), key=lambda kv: int(kv[0][3:])):
+            print(f"{row['stamp']:10} {row['date']}  {row['kind']:8} {row['note']}")
+    else:
         sys.exit(__doc__)
-    cmd, args = sys.argv[1], sys.argv[2:]
-    if cmd == "sums":
-        write_sums()
-        return
-    if cmd == "stamp":
-        new_stamp(" ".join(args))
-        return
-    sums, known, changed = read_sums(), logged_stamps(), 0
-    for export in map(Path, args):
-        target, data = repo_file(export), export.read_bytes()
-        m = STAMP.search(data)
-        stamp = m.group(1).decode() if m else "none"
-        note = "" if stamp in known else "  (stamp not in sync-log.tsv)"
-        status = "same" if sums.get(target.name) == md5(data) else "CHANGED"
-        print(f"{status:8} {target.name}  stamp {stamp}{note}")
-        if status == "CHANGED":
-            changed += 1
-            if cmd == "pull":
-                target.write_bytes(data)
-    if cmd == "pull" and changed:
-        write_sums()
-    sys.exit(1 if cmd == "check" and changed else 0)
 
 
 if __name__ == "__main__":

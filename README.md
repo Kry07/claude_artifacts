@@ -32,12 +32,6 @@ See [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (ar
 
 Imported 2026-11-10 from the Markdown export of each doc (revisions 50, 50 and 39). Synced again 2026-11-22 from the published docs: art2 and art3 had newer text, art7 was added.
 
-## Keeping repo and published docs in sync
+## Versions
 
-The files in `docs/` are byte-for-byte copies of the published docs (their Markdown export).
-
-- `docs/checksums.md5` holds the md5 of each copy (`cd docs && md5sum -c checksums.md5` checks the files). A different md5 on an export means the published doc changed.
-- Each doc ends with a stamp line, ``Repo sync: `s-xxxxxx` ``. `docs/sync-log.tsv` lists every stamp with its date, the docs it went into and a short note. A doc keeps its stamp until its text changes again, so the stamp says when it was last synced.
-- To pull: export each doc as Markdown to `artN.md` and run `uv run tools/docsum.py check art*.md`. It prints `same` or `CHANGED` per doc, and warns about a stamp that is not in the log.
-- To sync the changed docs: `uv run tools/docsum.py stamp "<note>"` adds a new stamp to the log (fill in its docs column). Put that stamp line into each changed published doc, export them again, run `uv run tools/docsum.py pull art*.md` (writes them to `docs/` and updates the sums), and commit.
-- A change made in the repo first goes the same way: publish the edit, stamp, export, pull, commit.
+Each doc ends with a stamp such as ``Version: `art2.v3` ``: the alias, then a number that goes up with every new text. `docs/versions.tsv` lists every version with its date, the md5 of the export, its kind (`rules` or `wording`) and a one-line note. `uv run tools/docsum.py check art*.md` tells whether exported docs are `current`, `EDITED` (changed on claude.ai without a new version), `OLD` or `UNKNOWN`; `list` shows the latest version of each doc. The routine for making a version is in [CLAUDE.md](CLAUDE.md).

@@ -89,4 +89,4 @@ Every tool for managing Claude sessions belongs to the working-env repo: claude-
 3. Add the alias row to `config/claude/cabinets.tsv` in working-env, so claude-spawn knows it.
 4. No other doc changes. They all link here.
 
-Repo sync: `s-3d0410`
+Version: `art0.v1`
