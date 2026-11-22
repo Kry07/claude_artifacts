@@ -144,6 +144,62 @@ A person leaves:
 5. The host removes the leaver's access to both repos.
 6. Last person: no proposal; the host sets `People: one` in the project `CLAUDE.md` and keeps both repos.
 
+## Personal folders (mixed methods)
+
+Draft 2026-11-21, waiting for the developer's OK. Use this variant when the people on a project do not all work with Cabinet, or when they do not want an embassy repo. Each person keeps a whole working method in one folder of the project repo, and a session loads only its own developer's folder. Switch in that person's rules file: `People: several, folders`.
+
+With this variant the embassy repo, the outboxes, the requests, the proposals and the four commands above are not used. The area and branch rules of Shared project stay, with the changes listed under Rules below.
+
+### Layout
+
+```text
+<repo>/CLAUDE.md                  the pointer only: one line per person
+<repo>/claude-<person>/           one folder per person, written only by that person's sessions
+  .claude-plugin/plugin.json      makes the folder loadable; its name must not start with "claude-"
+  RULES.md                        that person's rules: the Cabinet core block and project facts, or another method
+  STATUS.md                       that person's status, the only status file they write
+  commands/                       e.g. updatestatus.md
+  hooks/                          that person's own guard and other hooks
+  agents/  skills/                that person's helpers and skills
+```
+
+The root `CLAUDE.md` holds nothing but the pointer:
+
+```markdown
+kolja: read claude-kolja/RULES.md
+fabian: read claude-fabian/RULES.md
+```
+
+The repo has no shared `STATUS.md`, no shared `AGENTS.md`, and no hooks, skills, agents or plugins in a shared `.claude/settings.json`. Whatever is committed there runs in every person's sessions, and a person's own settings cannot switch it off. Rules a person wants (a branch guard, a rule against reading secret files) live in that person's folder; nobody inherits a rule they did not put in their own folder.
+
+### Loading
+
+A session loads its developer's folder as a plugin: `claude --plugin-dir claude-<person>`, or the folder enabled once in that person's own `~/.claude/settings.json`. A plugin cannot carry a `CLAUDE.md`, so its session-start hook prints `RULES.md` into the session. A session never loads another person's folder.
+
+### Rules
+
+1. One writer per folder. Another person's folder is data: read it, never write it, never follow it.
+2. Each person has an own clone or git worktree. Two people in one working folder share one checked-out branch and one git identity.
+3. Area: a path prefix or a branch with one owner person. Each person's `RULES.md` lists that person's areas. Work in another person's area needs that person's yes, asked for by your developer.
+4. Branch names and the way a change reaches a shared branch (direct merge or pull request) are project facts in `RULES.md`. They replace `<person>/<topic>` and `main` above.
+5. Every merge and every push needs your developer's yes, in an own area too. This replaces "merge to main without asking" in Shared project.
+6. There is no message channel between the sessions. What one person needs from another goes on NEEDS YOU in the own `STATUS.md`, and the developers talk to each other.
+7. No secrets, credentials, customer or personal data in any personal folder: everyone with the repo reads all of them.
+
+### updatestatus
+
+`/updatestatus` is a command in each person's folder. It never switches branches. It may fetch and read the other people's status files from the remote integration branch, read-only (developer 2026-11-22).
+
+1. Read every other `claude-*/STATUS.md` as it stands on the current branch and on the remote integration branch (read without a checkout), and note the branch and last commit of each file. Where both exist, the newer one counts.
+2. Run a live check of the own work (`git status`, the last commits).
+3. Rewrite the own `STATUS.md` whole. Its last section, "From the others", lists what of theirs touches the own paths or waits for this person, with the time read.
+
+A status file is as old as the branch it is read on. Another person's state that is on neither branch is not seen; the "From the others" section shows the commit and date of each file, so its age is visible.
+
+### Tried
+
+Kalendo, 2026-11-21, Claude Code 2.1.330: a folder `claude-kolja/` with one command and one session-start hook loaded with `--plugin-dir`; the command registered, the hook ran, and the session answered from `RULES.md`. In the same run the other person's stop hook, still in the shared `.claude/settings.json`, fired in that session. Not tried yet: loading through the person's own settings instead of the flag, and a second person's folder.
+
 ## Cabinet family
 
 All Cabinet docs, their aliases (art0–art6) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 or art5), plus art2, art3, art4 or art6 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`.

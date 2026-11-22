@@ -24,7 +24,7 @@ All Cabinet docs, their aliases, and how they combine. Every Cabinet doc links h
 
 ## Who works with whom
 
-| | art1 | art5 | art2 | art3 | art4 | art6 |
+|  | art1 | art5 | art2 | art3 | art4 | art6 |
 | --- | --- | --- | --- | --- | --- | --- |
 | **art1** | – | never both | as minister or overseer | yes | yes | as client |
 | **art5** | never both | – | as minister or overseer | yes | yes; art4 replaces art5's Usage budget | as client |

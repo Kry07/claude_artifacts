@@ -13,6 +13,7 @@ Working copies of the Cabinet docs, the rules Claude Code sessions follow. They 
 | art4 | [docs/cabinet-4-fast-forward.md](docs/cabinet-4-fast-forward.md) | [Cabinet 4 – Fast Forward](https://claude.ai/artifact/7c9zDiopSxQrD4jx9bhdk1) | in use (rebuild, robinliste-rb), not rated |
 | art5 | [docs/cabinet-5-review-flow.md](docs/cabinet-5-review-flow.md) | [Cabinet 5 – Review Flow (v1)](https://claude.ai/artifact/HG1zvy4LqoKS2TsrZp3Kv7) | not used yet; built from the Kalendo session, to compare with art1 |
 | art6 | [docs/cabinet-6-browser.md](docs/cabinet-6-browser.md) | [Cabinet 6 – Browser](https://claude.ai/artifact/HTQBenjZ84s8TCZ2Gwkkw7) | first run 2026-11-15 (rebuild-browser) |
+| art7 (proposed) | [docs/cabinet-7-skeleton.md](docs/cabinet-7-skeleton.md) | [Cabinet 7 – Skeleton](https://claude.ai/artifact/NaZnikby9hTFXvUxdRdrx7) | draft, waiting for the developer's OK; not in art0 or `cabinets.tsv` yet |
 
 ## What each one is
 
@@ -23,9 +24,10 @@ Working copies of the Cabinet docs, the rules Claude Code sessions follow. They 
 - **art4 Cabinet 4 – Fast Forward (mode).** Unattended work across 5-hour windows. Usage is measured by a status line, paced to about 85% by day and 90% by night (weekly limit set by the developer), paused cleanly before the limit and woken up in the next window, until `stop fast forward`.
 - **art5 Cabinet 5 – Review Flow (base).** A lighter alternative to art1, built from one very successful session: numbered questions with recommendations, a verifier and a fresh reviewer with a risk list on every part, an autonomous-run section, NEEDS YOU, the `ASSUMED:` marker.
 - **art6 Cabinet 6 – Browser (partner).** A session on the PC that drives Chrome and runs UI tests for exactly one paired client session, which can be on any machine: TEST briefs in, RESULTs out, only on listed test hosts, no passwords, no real purchases.
+- **art7 Cabinet 7 – Skeleton (draft).** With `Skeleton: on`, a session runs the `claude-skeleton` rules, commands, hooks, skills, agents and status board exactly as their author does, from the person's own folder (Cabinet 3, Personal folders). Alias and switch are proposed, not yet listed in art0.
 
 ## How they combine
 
 See [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0, [docs/cabinet-0-index.md](docs/cabinet-0-index.md)): the rules for combining, who works with whom, the switches, typical setups and how to start sessions with `claude-spawn`. Every other doc links to it, so a new doc changes only the index, this README and `cabinets.tsv` in working-env.
 
-Imported 2026-11-10 from the Markdown export of each doc (revisions 50, 50 and 39).
+Imported 2026-11-10 from the Markdown export of each doc (revisions 50, 50 and 39). Synced again 2026-11-22 from the published docs: art2 and art3 had newer text, art7 was added.
