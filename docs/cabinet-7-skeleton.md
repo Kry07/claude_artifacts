@@ -203,7 +203,8 @@ What a Cabinet session adds on top. None of it removes or weakens a skeleton rul
 
 ## Open points
 
-1. Board on another branch. The skeleton reads the board on the remote integration branch before starting. The developer's rule for `updatestatus` is to stay on the current branch. As written above, `git fetch`, the open pull requests and the remote branch list are checked, and the other people's boards are read as they stand on the current branch. Recommended: allow reading the other person's board from the remote integration branch too, read-only, so this point matches the skeleton fully.
-2. Guard fixes. The Kalendo copy in `claude-kolja/` closes three gaps the skeleton's guard has (`git diff --no-index`, `git grep`, `gh` with a secret file) and reads the branch names from a config file. That is stricter, not different in what it allows for normal work. Recommended: offer the same fixes to the skeleton's author, so both guards are the same file again.
-3. Decisions of 2026-11-21 replaced by this rewrite: merge commit (now squash, as the skeleton), `done` only after a separate yes (now `done` on merge through `/ship`), formatter off (now on).
-4. Alias art7 and the switch name `Skeleton:`. Recommended: keep both, then add the row to Cabinet 0 – Index and `cabinets.tsv`.
+1. Decided 2026-11-22: `updatestatus` never switches branches, but it fetches and may read the other people's boards from the remote integration branch, read-only. With this the step before starting is the skeleton's.
+2. Decided 2026-11-22: the three guard fixes of the Kalendo copy in `claude-kolja/` (`git diff --no-index`, `git grep`, `gh` with a secret file; branch names from a config file) are offered to the skeleton's author. Until he takes them, that copy is stricter than the skeleton's guard and allows the same normal work.
+3. Decided 2026-11-22: the bootstrap runs with `--keep-user-settings`, as the skeleton's own start check recommends.
+4. Decisions of 2026-11-21 replaced by this rewrite: merge commit (now squash, as the skeleton), `done` only after a separate yes (now `done` on merge through `/ship`), formatter off (now on).
+5. Open: alias art7 and the switch name `Skeleton:`. Recommended: keep both, then add the row to Cabinet 0 – Index and `cabinets.tsv`.
