@@ -60,15 +60,15 @@ Set in the project `CLAUDE.md` (the base doc's core block):
 
 With `claude-spawn` (working-env):
 
-- `claude-spawn <name> [folder] [resume|new] art1,art4` starts a session that reads and applies the listed docs in order. art4 adds the usage limits (`--limits 85,90,80`); art6 adds `--chrome`.
-- `claude-spawn --browser <client> --hosts 127.0.0.1:8088` sets up and starts a browser session paired with that client.
-- `claude-spawn --cabinets` lists the aliases.
+- `claude-spawn open <name> [folder] [-n] [-c art1,art4]` starts a session, or resumes it (`-n` for a new conversation), and with `-c` it reads and applies the listed docs in order. art4 adds the usage limits (`-l 85,90,80`); art6 adds `--chrome`. `-t` trusts the folder, `-d` starts it without attaching.
+- `claude-spawn browser <client> --hosts 127.0.0.1:8088` sets up and starts a browser session paired with that client.
+- `claude-spawn cabinets` lists the aliases, `claude-spawn list` the sessions, and `claude-spawn help <command>` prints a command's options. The same spelling works on Linux and Windows.
 
 Without it, paste the opening line into a new session: `Read and apply these Cabinet docs, in this order: <links>. Run their First steps.`
 
 ## The daemon: one entrypoint per machine
 
-Every machine runs `daemon-<machine>`, e.g. `daemon-pckolja` and `daemon-mbedv-dev`. It starts at sign-in with `claude-spawn --start` (`-Start`), which also starts the saved sessions. Any of the developer's sessions, on any machine, can message it:
+Every machine runs `daemon-<machine>`, e.g. `daemon-pckolja` and `daemon-mbedv-dev`. It starts at sign-in with `claude-spawn start`, which also starts the saved sessions. Any of the developer's sessions, on any machine, can message it:
 
 | Message | Reply |
 | --- | --- |

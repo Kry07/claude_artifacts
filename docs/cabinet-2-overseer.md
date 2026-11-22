@@ -21,7 +21,7 @@ Each minister has an **alias** of 2–4 lowercase letters (`br` = bridge, `kal` 
 
 ## Setup
 
-**The overseer:** either a session in its own folder with no project, e.g. `~/coding/overseer` (`claude-spawn overseer ~/coding/overseer new art2`), with this `CLAUDE.md`, or a solo session in its project that the developer also makes overseer: add `Role: overseer` and the overseer First steps to its project `CLAUDE.md`, and keep LEDGER.md and LOG.md in `~/.claude/<session>/` (Cabinet 1 Where files live) so the repo stays clean. Own folder:
+**The overseer:** either a session in its own folder with no project, e.g. `~/coding/overseer` (`claude-spawn open overseer ~/coding/overseer -n -c art2`), with this `CLAUDE.md`, or a solo session in its project that the developer also makes overseer: add `Role: overseer` and the overseer First steps to its project `CLAUDE.md`, and keep LEDGER.md and LOG.md in `~/.claude/<session>/` (Cabinet 1 Where files live) so the repo stays clean. Own folder:
 
 ```markdown
 # CLAUDE.md

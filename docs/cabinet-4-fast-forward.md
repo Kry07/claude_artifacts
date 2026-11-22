@@ -87,7 +87,7 @@ exit 2
 "hooks": { "PreToolUse": [ { "matcher": "*", "hooks": [ { "type": "command", "command": "bash ~/.claude/claude-usage/claude-usage.sh" } ] } ] }
 ```
 
-6. Restart: settings load at start, so the developer restarts the session (`/exit`, then `claude --continue` in the same folder; under `claude-spawn`: `tmux kill-session -t <name>` and `claude-spawn <name> resume`). The status line then shows `5h: <n>% (guard 95%)` and `status.json` appears.
+6. Restart: settings load at start, so the developer restarts the session (`/exit`, then `claude --continue` in the same folder; under `claude-spawn`: `claude-spawn close <name>` and `claude-spawn open <name>`). The status line then shows `5h: <n>% (guard 95%)` and `status.json` appears.
 7. Check, output shown: the preflight passes; `bash ~/.claude/claude-usage/claude-usage.sh; echo "exit $?"` prints `exit 0`; `CLAUDE_USAGE_LIMIT=1 bash ~/.claude/claude-usage/claude-usage.sh; echo "exit $?"` prints the USAGE GUARD line and `exit 2`.
 
 A project whose `.claude/settings.json` sets its own `statusLine` stops `status.json` from updating while you work there; list such projects for the developer.
@@ -114,7 +114,7 @@ While it runs:
 - A decision that needs a yes goes under NEEDS YOU (STATUS note and NEXT-SESSION); the session goes on with the next item and never waits for an answer.
 - No open item left: WINDOW line, STATUS, NEXT-SESSION with `fast forward idle: no open items`, cancel the wake-ups, USAGE action `idle`, end the turn.
 - A run over days relies on Claude Code's automatic context compaction. STATUS, NEXT-SESSION and USAGE.md, written at every pause, carry the state; after a compaction re-read `CLAUDE.md`, this doc and NEXT-SESSION before the next step.
-- After a reboot `claude-spawn -Restore` brings the conversation back but not its scheduled wake-ups: the developer's `fast forward` restarts the run.
+- After a reboot `claude-spawn restore` brings the conversation back but not its scheduled wake-ups: the developer's `fast forward` restarts the run.
 
 ## Budget
 
@@ -226,7 +226,7 @@ The 200 % run of the old prompt would show as pace about 2.0 and a pause near 2.
 The old prompt drained about 200 % because it asked for "many parallel subagents" on "large resources" with nothing measured; its only brake was the 90 % stop. The replacement starts fast forward, which sets the pace, not just the stop, and resumes in every new window:
 
 ```
-cd <dir> && claude-spawn <name> . new
+cd <dir> && claude-spawn open <name> . -n
 ```
 
 then, as the first message in that session:

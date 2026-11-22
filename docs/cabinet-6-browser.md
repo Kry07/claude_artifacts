@@ -12,7 +12,7 @@ A browser session is a `claude` session that drives Chrome through Claude in Chr
 
 ## Setup
 
-**Quick way, on the PC:** `claude-spawn --browser <client> --hosts <host:port>[,<host>]`, e.g. `claude-spawn --browser rebuild --hosts 127.0.0.1:8088`. It does steps 1–3: it creates the folder and its CLAUDE.md from the working-env template (alias `<client>-web` unless `--alias`, off-limits list unless `--never`), and starts the session with `art6`. If the folder exists, it resumes, so the same command restarts a stopped browser session. Then it prints the pairing line for step 4. On a machine without Chrome it refuses. The steps below are what it does, for setting one up by hand.
+**Quick way, on the PC:** `claude-spawn browser <client> --hosts <host:port>[,<host>]`, e.g. `claude-spawn browser rebuild --hosts 127.0.0.1:8088`. It does steps 1–3: it creates the folder and its CLAUDE.md from the working-env template (alias `<client>-web` unless `--alias`, off-limits list unless `--never`), and starts the session with `art6`. If the folder exists, it resumes, so the same command restarts a stopped browser session. Then it prints the pairing line for step 4. On a machine without Chrome it refuses. The steps below are what it does, for setting one up by hand.
 
 **From any machine:** when the developer tells the client to get a browser, the client sends `SPAWN browser <client> hosts=<host:port>` to the PC's daemon, `daemon-pckolja` ([Cabinet 0](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH), The daemon). The daemon runs the quick way and replies `SPAWNED <client>-browser on <machine>` with the pairing line. The client asked for it, so it takes that reply as step 4 and waits for READY. The test hosts must be reachable from the PC: a client on a server names a host the PC can open, not `127.0.0.1`.
 
@@ -35,7 +35,7 @@ Read https://claude.ai/artifact/HTQBenjZ84s8TCZ2Gwkkw7 (Cabinet 6 – Browser) a
 4. Act only on the developer's next message or a TEST from your client.
 ```
 
-3. Start it with Chrome enabled, e.g. `claude-spawn kalendo-browser ~/coding/kalendo-browser new art6` (claude-spawn starts it with `--chrome`), or `claude --chrome -n kalendo-browser`. A cheaper model is enough for most tests: `--model sonnet`.
+3. Start it with Chrome enabled, e.g. `claude-spawn open kalendo-browser ~/coding/kalendo-browser -n -c art6` (claude-spawn starts it with `--chrome`), or `claude --chrome -n kalendo-browser`. A cheaper model is enough for most tests: `--model sonnet`.
 4. **Pairing, confirmed by the developer in both sessions.** A session never takes another session's word for it.
    - In the browser session, the `Paired with:` line does it.
    - In the client session, the `Browser: <name>` switch in its CLAUDE.md does it, or the developer types once: `Your browser session is <name>. Send UI tests to it per Cabinet 6 – Browser: https://claude.ai/artifact/HTQBenjZ84s8TCZ2Gwkkw7`.
