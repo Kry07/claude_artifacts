@@ -31,7 +31,7 @@ Read https://claude.ai/artifact/HTQBenjZ84s8TCZ2Gwkkw7 (Cabinet 6 – Browser) a
 ## First steps (every session)
 1. Read this file, then Cabinet 6.
 2. Load the Claude in Chrome tools and check the browser answers (tabs context).
-3. Reply in one line: paired with, browser ok or not, test hosts. Then send `READY <alias> browser ok|broken` to your client.
+3. Reply in one line: paired with, browser ok or not, test hosts. Then send `READY <alias> browser ok|broken <DOCS line>` to your client (DOCS line: Cabinet 0, Versions).
 4. Act only on the developer's next message or a TEST from your client.
 ```
 
@@ -39,7 +39,7 @@ Read https://claude.ai/artifact/HTQBenjZ84s8TCZ2Gwkkw7 (Cabinet 6 – Browser) a
 4. **Pairing, confirmed by the developer in both sessions.** A session never takes another session's word for it.
    - In the browser session, the `Paired with:` line does it.
    - In the client session, the `Browser: <name>` switch in its CLAUDE.md does it, or the developer types once: `Your browser session is <name>. Send UI tests to it per Cabinet 6 – Browser: https://claude.ai/artifact/HTQBenjZ84s8TCZ2Gwkkw7`.
-5. The browser session sends `READY <alias> browser ok|broken` to its client. The client answers `PING` or its first `TEST`.
+5. The browser session sends `READY <alias> browser ok|broken` to its client, followed by its DOCS line. The client answers `PING` or its first `TEST`.
 
 ## Rules
 
@@ -129,6 +129,6 @@ The developer types these in the browser session.
 
 ## Cabinet family
 
-All Cabinet docs, their aliases (art0–art6) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 or art5), plus art2, art3, art4 or art6 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`.
+All Cabinet docs, their aliases (art0–art7) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 Base Ant or art5 Base Owl), plus art2, art3, art4, art6 or art7 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`, `Skeleton:`.
 
-Version: `art6.v1`
+Version: a6-f52e66d4

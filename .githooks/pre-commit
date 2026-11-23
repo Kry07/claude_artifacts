@@ -1,0 +1,3 @@
+#!/bin/sh
+# Refuse a commit when a Cabinet doc's stamp does not prove its text, is not logged or not current.
+exec uv run --quiet tools/stamps.py verify

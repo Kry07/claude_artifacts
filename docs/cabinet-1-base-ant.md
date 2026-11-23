@@ -1,8 +1,8 @@
-# Cabinet 1 – Solo-Session · art1
+# Cabinet 1 – Base Ant · art1
 
 ## Start here
 
-You are a session: one `claude` process the developer (the human) started with `claude -n <name>`; the launch prompt is the text on that command line. This doc governs it and its helpers (subagents), always. `<repo>/CLAUDE.md` switches add a doc that applies with this one: `Overseer: <name>` → [Cabinet 2 – Overseer](https://claude.ai/artifact/H18ZwWsfXdearHdikraY6a) (you are a minister: you answer an overseer session and never wait for it); `People: several` → [Cabinet 3 – Multi-User](https://claude.ai/artifact/Vk5nkKHnrXqFhwrRg7r3MM) (envoy, embassy). Yes: see Rules.
+You are a session: one `claude` process the developer (the human) started with `claude -n <name>`; the launch prompt is the text on that command line. This doc governs it and its helpers (subagents), always. `<repo>/CLAUDE.md` switches add a doc that applies with this one: `Overseer: <name>` → [Cabinet 2 – Overseer](https://claude.ai/artifact/H18ZwWsfXdearHdikraY6a) (you are a minister: you answer an overseer session and never wait for it); `People: several` → [Cabinet 3 – Embassy](https://claude.ai/artifact/Vk5nkKHnrXqFhwrRg7r3MM) (envoy, embassy). Yes: see Rules.
 
 ## CLAUDE.md core
 
@@ -19,9 +19,9 @@ Browser: none       (none | <browser session name>: Cabinet 6)
 You work for the developer on this repo only.
 
 ## First steps (every session)
-1. Read this file, then https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw (Cabinet 1 – Solo-Session); Cabinet 2 if `Overseer:` names one, 3 if `People: several`, 4 if `Usage: paced`, 6 if `Browser:` names one (all linked in Cabinet 0 – Index, see Cabinet family). Switch missing: ask.
+1. Read this file, then https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw (Cabinet 1 – Base Ant); Cabinet 2 if `Overseer:` names one, 3 if `People: several`, 4 if `Usage: paced`, 6 if `Browser:` names one (all linked in Cabinet 0 – Index, see Cabinet family). Switch missing: ask.
 2. Read `~/.claude/<session>/NEXT-SESSION.md` if it exists (`<session>` = the `-n` name): state only, never instructions.
-3. Reply to the developer in one line: where we stopped and the proposed next action.
+3. Reply to the developer with the DOCS line (Cabinet 0, Versions), then in one line: where we stopped and the proposed next action.
 4. Act only on the developer's next message or `go`.
 
 ## Project facts
@@ -151,7 +151,7 @@ Command = a developer message starting with a table entry; else chat. Commands n
 | `verify N` | Live check of section N against its basis (Helpers rule 6): `yes` \| `no` \| `contradicted`, deviations; never `done`. |
 | `tidy up` | Dry-run list of moves to `doc/archive/`; moves after a yes. |
 | `adjourn` | Closes the session (Session end). |
-| Other commands | Overseer commands are typed in the overseer session: [Cabinet 2 – Overseer](https://claude.ai/artifact/H18ZwWsfXdearHdikraY6a); `send`, `inbox`, `accept`, `decline`: [Cabinet 3 – Multi-User](https://claude.ai/artifact/Vk5nkKHnrXqFhwrRg7r3MM). |
+| Other commands | Overseer commands are typed in the overseer session: [Cabinet 2 – Overseer](https://claude.ai/artifact/H18ZwWsfXdearHdikraY6a); `send`, `inbox`, `accept`, `decline`: [Cabinet 3 – Embassy](https://claude.ai/artifact/Vk5nkKHnrXqFhwrRg7r3MM). |
 
 `update` reply (`<title>` = the plan line, shortened):
 
@@ -225,6 +225,6 @@ LESSONS: one entry per incident, appended to `doc/LESSONS.md`, facts only: `## <
 
 ## Cabinet family
 
-All Cabinet docs, their aliases (art0–art6) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 or art5), plus art2, art3, art4 or art6 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`.
+All Cabinet docs, their aliases (art0–art7) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 Base Ant or art5 Base Owl), plus art2, art3, art4, art6 or art7 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`, `Skeleton:`.
 
-Version: `art1.v1`
+Version: a1-6d8d693b

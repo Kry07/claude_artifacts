@@ -1,12 +1,12 @@
-# Cabinet 7 – Skeleton
+# Cabinet 7 – Fabian's Ruleset · art7
 
-Nov 21, 2026 · @Kolja Kauer · draft, waiting for the developer's OK
+Nov 21, 2026 · @Kolja Kauer
 
 ## Start here
 
 With `Skeleton: on` a Cabinet session runs Fabian's `claude-skeleton` exactly as its author runs it: the same rules, commands, hooks, skills, agents and status board. The only thing that is the session's own is the place. Everything sits in the person's own folder (Cabinet 3, Personal folders) instead of `.claude/` and the repo root, so it loads only in that person's sessions.
 
-Source: the skeleton at commit `f41d005`, as adopted in the Kalendo repo. Rewritten 2026-11-22 so that a comparison of a folder set up from this doc with the skeleton finds no difference in rules or behaviour. Proposed alias: art7; Cabinet 0 – Index and `cabinets.tsv` do not list it yet.
+Source: the skeleton at commit `f41d005`, as adopted in the Kalendo repo. Rewritten 2026-11-22 so that a comparison of a folder set up from this doc with the skeleton finds no difference in rules or behaviour. Alias art7, listed in Cabinet 0 – Index and `cabinets.tsv`.
 
 Who wins:
 
@@ -207,6 +207,10 @@ What a Cabinet session adds on top. None of it removes or weakens a skeleton rul
 2. Decided 2026-11-22: the three guard fixes of the Kalendo copy in `claude-kolja/` (`git diff --no-index`, `git grep`, `gh` with a secret file; branch names from a config file) are offered to the skeleton's author. Until he takes them, that copy is stricter than the skeleton's guard and allows the same normal work.
 3. Decided 2026-11-22: the bootstrap runs with `--keep-user-settings`, as the skeleton's own start check recommends.
 4. Decisions of 2026-11-21 replaced by this rewrite: merge commit (now squash, as the skeleton), `done` only after a separate yes (now `done` on merge through `/ship`), formatter off (now on).
-5. Open: alias art7 and the switch name `Skeleton:`. Recommended: keep both, then add the row to Cabinet 0 – Index and `cabinets.tsv`.
+5. Decided 2026-11-23: alias art7, title Cabinet 7 – Fabian's Ruleset (Fabian agreed), and the switch name `Skeleton:` after his repo claude-skeleton; listed in Cabinet 0 – Index and `cabinets.tsv`.
 
-Version: `art7.v1`
+## Cabinet family
+
+All Cabinet docs, their aliases (art0–art7) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 Base Ant or art5 Base Owl), plus art2, art3, art4, art6 or art7 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`, `Skeleton:`.
+
+Version: a7-445ee718

@@ -1,8 +1,8 @@
-# Cabinet 3 – Multi-user · art3
+# Cabinet 3 – Embassy · art3
 
 ## Start here
 
-Two or more people work on one project. Each person runs [Cabinet 1 – Solo](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) or [Cabinet 5 – Review Flow](https://claude.ai/artifact/HG1zvy4LqoKS2TsrZp3Kv7) sessions, with or without an overseer ([Cabinet 2 – Overseer](https://claude.ai/artifact/H18ZwWsfXdearHdikraY6a)); both apply unchanged. This doc applies when the project `CLAUDE.md` says `People: several`. It adds area and branch rules, the envoy role, the embassy repo, requests, replies, proposals, four commands. "You" = the session reading this; "your developer" = the person it works for.
+Two or more people work on one project. Each person runs [Cabinet 1 – Base Ant](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) or [Cabinet 5 – Base Owl](https://claude.ai/artifact/HG1zvy4LqoKS2TsrZp3Kv7) sessions, with or without an overseer ([Cabinet 2 – Overseer](https://claude.ai/artifact/H18ZwWsfXdearHdikraY6a)); both apply unchanged. This doc applies when the project `CLAUDE.md` says `People: several`. It adds area and branch rules, the envoy role, the embassy repo, requests, replies, proposals, four commands. "You" = the session reading this; "your developer" = the person it works for.
 
 ## Shared project
 
@@ -54,7 +54,7 @@ One small private git repo (remote `origin`, branch `main` only) at `../<project
 3. Area table `| Area | Owner |`: one row per path prefix, Owner = a Person of the member table; a `doc/` row is mandatory (its Owner = doc owner).
 4. Rules, one line each: one writer per outbox; newest first; append only; no secrets, no files; README.md and CLAUDE.md change only by accepted proposal.
 
-`CLAUDE.md` = the CLAUDE.md core block of [Cabinet 1 – Solo](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) with `Overseer: none`, `People: several`, `Context: writing`, and these Project facts:
+`CLAUDE.md` = the CLAUDE.md core block of [Cabinet 1 – Base Ant](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) with `Overseer: none`, `People: several`, `Context: writing`, and these Project facts:
 
 ```markdown
 ## Project facts
@@ -125,7 +125,7 @@ Embassy write table; this table is the whole write permission there:
 | `<embassy>/doc/<you>-to-<other>.md` | envoy `<you>` only: creates it, adds entries and `closed:` lines | after `go`, `accept` or `decline` |
 | `<embassy>/doc/archive/<you>-to-<other>.md` | envoy `<you>` only: moves closed entries | on `tidy up`, after `go` |
 
-Project repo files: [Cabinet 1 – Solo](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) Where files live, limited by Shared project. Overseer files: [Cabinet 2 – Overseer](https://claude.ai/artifact/H18ZwWsfXdearHdikraY6a) Where files live. Nothing under `~/.claude/` is shared between people; everyone reads all of the embassy.
+Project repo files: [Cabinet 1 – Base Ant](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) Where files live, limited by Shared project. Overseer files: [Cabinet 2 – Overseer](https://claude.ai/artifact/H18ZwWsfXdearHdikraY6a) Where files live. Nothing under `~/.claude/` is shared between people; everyone reads all of the embassy.
 
 ## Joining and leaving
 
@@ -202,6 +202,6 @@ Kalendo, 2026-11-21, Claude Code 2.1.330: a folder `claude-kolja/` with one comm
 
 ## Cabinet family
 
-All Cabinet docs, their aliases (art0–art6) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 or art5), plus art2, art3, art4 or art6 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`.
+All Cabinet docs, their aliases (art0–art7) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 Base Ant or art5 Base Owl), plus art2, art3, art4, art6 or art7 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`, `Skeleton:`.
 
-Version: `art3.v1`
+Version: a3-26f2ff29

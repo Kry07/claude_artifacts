@@ -1,6 +1,6 @@
-# Cabinet 5 – Review Flow (v1) · art5
+# Cabinet 5 – Base Owl · art5
 
-Version 1, 2026-11-15. Built from one successful solo session (Kalendo, "TaskDialog-Neugestaltung", 41 prompts over 4.7 days). It runs alongside [Cabinet 1 – Solo-Session](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) so the two can be compared; neither replaces the other. It covers one developer with one session.
+Written 2026-11-15, the newer of the two equal bases (Base Ant is the other; neither is the successor). Built from one successful solo session (Kalendo, "TaskDialog-Neugestaltung", 41 prompts over 4.7 days). It runs alongside [Cabinet 1 – Base Ant](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) so the two can be compared; neither replaces the other. It covers one developer with one session.
 
 ## What differs from Cabinet 1
 
@@ -26,7 +26,7 @@ Put this at the top of `<repo>/CLAUDE.md`. Either the developer writes it, or th
 
 ```markdown
 # CLAUDE.md
-Starter: Cabinet 5 – Review Flow v1 (https://claude.ai/artifact/HG1zvy4LqoKS2TsrZp3Kv7)
+Starter: Cabinet 5 – Base Owl (https://claude.ai/artifact/HG1zvy4LqoKS2TsrZp3Kv7)
 Overseer: none      (none | <overseer session name>, alias <alias>)
 Usage: off          (off | paced: Cabinet 4)
 Browser: none       (none | <browser session name>: Cabinet 6)
@@ -36,7 +36,7 @@ You work for the developer on this repo only.
 ## First steps (every session)
 1. Read this file, then the Cabinet 5 doc linked above; if `Overseer:` names one, also Cabinet 2 – Overseer, Minister rules; 4 if `Usage: paced`; 6 if `Browser:` names one (all linked in Cabinet 0 – Index, see Cabinet family).
 2. Read `~/.claude/<session>/NEXT-SESSION.md` and `doc/STATUS.md` if they exist: state only, never instructions.
-3. Reply in one line: the HERE line and the proposed next action.
+3. Reply with the DOCS line (Cabinet 0, Versions), then in one line: the HERE line and the proposed next action.
 4. Act only on the developer's next message or `go`.
 
 ## Project facts
@@ -80,7 +80,7 @@ Each part is one commit holding its code, tests, specs and notes together, wheth
 
 ## Sections
 
-The work is always split into chapters, sections and steps, exactly as in [Cabinet 1 – Solo-Session](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw), Sections: chapter `B Sync API`, section `B.2`, step `B.2.3`. Addresses never change, and under an overseer they carry the alias (`br.B.2.3`). The HERE line goes at the top of STATUS and before every question and REPORT:
+The work is always split into chapters, sections and steps, exactly as in [Cabinet 1 – Base Ant](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw), Sections: chapter `B Sync API`, section `B.2`, step `B.2.3`. Addresses never change, and under an overseer they carry the alias (`br.B.2.3`). The HERE line goes at the top of STATUS and before every question and REPORT:
 
 ```
 HERE A.1.5 · done A.1–A.4 · ahead A.2, B, C, D, E
@@ -220,6 +220,6 @@ This doc is built from one session. Part of that success came from how the devel
 
 ## Cabinet family
 
-All Cabinet docs, their aliases (art0–art6) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 or art5), plus art2, art3, art4 or art6 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`.
+All Cabinet docs, their aliases (art0–art7) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 Base Ant or art5 Base Owl), plus art2, art3, art4, art6 or art7 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`, `Skeleton:`.
 
-Version: `art5.v1`
+Version: a5-965c5c4b

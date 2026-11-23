@@ -2,7 +2,7 @@
 
 ## Start here
 
-One developer and several `claude` sessions. Every working session is a minister: a normal solo session under [Cabinet 1 – Solo-Session](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) or [Cabinet 5 – Review Flow](https://claude.ai/artifact/HG1zvy4LqoKS2TsrZp3Kv7), on its own project, at its own pace. One session is the overseer. It can be a session of its own with no project, or a solo session that also oversees: then it works on its own project under Cabinet 1 or 5 like any minister. It keeps track of who is doing what, how far each minister has got, and what each one spends. It reports to the developer and passes the developer's commands on to the ministers.
+One developer and several `claude` sessions. Every working session is a minister: a normal solo session under [Cabinet 1 – Base Ant](https://claude.ai/artifact/UJvH5vT7vsHCtqv2M4g3Bw) or [Cabinet 5 – Base Owl](https://claude.ai/artifact/HG1zvy4LqoKS2TsrZp3Kv7), on its own project, at its own pace. One session is the overseer. It can be a session of its own with no project, or a solo session that also oversees: then it works on its own project under Cabinet 1 or 5 like any minister. It keeps track of who is doing what, how far each minister has got, and what each one spends. It reports to the developer and passes the developer's commands on to the ministers.
 
 The rule this doc is built on: **ministers never wait for the overseer.** They never ask it for permission, and it never approves anything. When the overseer is silent, busy, offline or gone, every minister works on exactly as a solo session would. The overseer adds visibility and steering; it never adds a gate.
 
@@ -71,16 +71,19 @@ Overseer to minister:
 Minister to overseer:
 
 ```
-HELLO <alias>  <session>  <machine>  <repo>  <Cabinet 1|5>  <HERE line>
+HELLO <alias>  <session>  <machine>  <repo>  <Cabinet 1|5>  <DOCS line>  <HERE line>
 CHECKIN <alias>  <YYYY-MM-DD HH:MM>  <event>  <HERE line>  <SPEND line | spend unknown>
 REPORT <alias>  <YYYY-MM-DD HH:MM>
 HERE      <progress line>
+DOCS      <stamps>
 DOING     <one line>
 STATE     <section state counts: done n, in-progress n, blocked n, open n>
 NEEDS YOU <numbered, each with a recommendation | nothing>
 SPEND     <SPEND line | spend unknown>
 CAP       <helper cap>  <pace>
 ```
+
+`<DOCS line>` and the `DOCS` row = the stamps of the Cabinet docs the minister read (Cabinet 0, Versions). The overseer keeps them in the LEDGER. A minister whose art2 stamp differs from the overseer's, or whose stamp is older than the current one in `cabinets.tsv`, gets one line under NEEDS YOU. It never blocks the minister and is never a reason to wait.
 
 `<event>` = `section done <address>`, `blocked <address>`, `needs you <n>`, `paused`, `resumed`, `stopped`, `adjourned`. A minister sends a CHECKIN only for these events, never more often. The HERE line = the progress line from Cabinet 1, Sections, with the alias, e.g. `HERE br.A.5.2 · done A.1–A.4 · ahead A.6, B, C`.
 
@@ -257,10 +260,10 @@ The overseer reads only its own files and the messages it receives. It never rea
 
 ## Two people
 
-With `People: several` ([Cabinet 3 – Multi-User](https://claude.ai/artifact/Vk5nkKHnrXqFhwrRg7r3MM)), each person's overseer is that person's envoy. Without an overseer, the envoy is the person's sole session.
+With `People: several` ([Cabinet 3 – Embassy](https://claude.ai/artifact/Vk5nkKHnrXqFhwrRg7r3MM)), each person's overseer is that person's envoy. Without an overseer, the envoy is the person's sole session.
 
 ## Cabinet family
 
-All Cabinet docs, their aliases (art0–art6) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 or art5), plus art2, art3, art4 or art6 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`.
+All Cabinet docs, their aliases (art0–art7) and how they combine: [Cabinet 0 – Index](https://claude.ai/artifact/TwFz84TC9NKjoE3K3PTcFH) (art0). In short: one base (art1 Base Ant or art5 Base Owl), plus art2, art3, art4, art6 or art7 on top; switches `Overseer:`, `People:`, `Usage:`, `Browser:`, `Skeleton:`.
 
-Version: `art2.v1`
+Version: a2-398d1d7d
