@@ -68,7 +68,7 @@ Ask working-env; it reads `cabinets.tsv` from this repo through its submodule:
 | `claude-spawn refresh <name>` | a running session re-reads the docs that changed; only when you say so |
 | `claude-spawn respawn <name>` | closes a session with its handover and starts it fresh on the current docs; only when you say so |
 
-By hand: compare a session's DOCS line, or a minister's DOCS row in its REPORT, with `cabinets.tsv`. The overseer puts a stale minister under NEEDS YOU; it never stops a session for it. working-env's own manual has every option.
+By hand: compare a session's DOCS line, or a minister's DOCS row in its REPORT, with `cabinets.tsv`. The overseer puts a stale minister under NEEDS YOU; it never stops a session for it. [working-env's own manual](https://claude.ai/artifact/HGzSWAwvy8F1q3CRyc5WJi) has every option.
 
 ## Changing a doc
 
