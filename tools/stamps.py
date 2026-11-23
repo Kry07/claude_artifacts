@@ -179,6 +179,8 @@ def verify() -> int:
 def show_log(alias: str, since: str | None) -> None:
     n = alias.removeprefix("art").removeprefix("a")
     rows = [r for r in log() if r["stamp"].startswith(f"a{n}-")]
+    if not rows:
+        sys.exit(f"art{n} has no stamps")
     if since:
         stamps = [r["stamp"] for r in rows]
         if since not in stamps:

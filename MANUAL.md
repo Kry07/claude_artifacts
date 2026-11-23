@@ -29,7 +29,7 @@ Use `claude-spawn open` from working-env, with the docs after `-c`, base first:
 claude-spawn open kalendo ~/coding/kalendo -n -c art1,art4
 ```
 
-The session reads the docs on claude.ai, replies with its DOCS line (the stamps it read), then one line on where it stands, and waits for your next message or `go`. `-n` starts a fresh conversation; without it the saved one resumes. `-l 85,90,80` sets the Fast Forward limits, `-t` trusts the folder, `-d` starts it without attaching.
+The session reads the docs on claude.ai, replies with its DOCS line (the stamps it read), then one line on where it stands, and waits for your next message or `go`. `-n` starts a fresh conversation; without it the saved one resumes. `-l 85,90,80` sets the Fast Forward limits, `-t` trusts the folder, `-d` starts it without attaching. Instead of `-c`, `-i <image>` takes a named recipe, e.g. `-i minister-ff` (art1, art4 with limits); `claude-spawn images` lists them.
 
 | Setup | Docs |
 | --- | --- |
@@ -56,21 +56,19 @@ The DOCS line is the first thing a session says after reading its docs, e.g. `DO
 
 ## Is every session up to date
 
-Today: compare a session's DOCS line, or a minister's DOCS row in its REPORT, with `cabinets.tsv`. The overseer does this for its ministers and puts a stale one under NEEDS YOU; it never stops a session for it.
-
-Being built in working-env (planned, not there yet):
+Ask working-env; it reads `cabinets.tsv` from this repo through its submodule:
 
 | Command | What it does |
 | --- | --- |
-| `claude-cli docs` | every session with its docs and stamps: current, behind on wording, or behind on rules |
-| `claude-cli docs --stale` | only the sessions that are behind |
-| `claude-cli docs log a1 --since <stamp>` | what changed in a doc since the stamp a session carries |
-| `claude-spawn open … -i <image>` | start from a named recipe (folder, docs, options), e.g. `minister-ff` |
-| `claude-spawn refresh <name>` | tell a running session to re-read the docs that changed; only when you say so |
-| `claude-spawn respawn <name>` | close a session with its handover and start it fresh on the current docs |
-| `claude-spawn list`, daemon `STATUS` | carry the stamps, so the overseer sees all machines |
+| `claude-spawn list` | every session with its doc state: `current`, `old` (behind on wording only), `OLD` (rules changed), `unread`, `differs`, `unknown`, `unrecorded` |
+| `claude-spawn list --stale` | only the sessions that are behind |
+| `claude-cli docs [--stale]` | the details: each session's docs and stamps |
+| `claude-cli docs log art2 --since <stamp>` | what changed in a doc since the stamp a session carries |
+| daemon `STATUS` | the same states and stamps on every machine, so the overseer sees them all |
+| `claude-spawn refresh <name>` | a running session re-reads the docs that changed; only when you say so |
+| `claude-spawn respawn <name>` | closes a session with its handover and starts it fresh on the current docs; only when you say so |
 
-working-env's own manual describes these once they exist.
+By hand: compare a session's DOCS line, or a minister's DOCS row in its REPORT, with `cabinets.tsv`. The overseer puts a stale minister under NEEDS YOU; it never stops a session for it. working-env's own manual has every option.
 
 ## Changing a doc
 
@@ -98,7 +96,7 @@ Adding a doc: next alias, `· artN` in its title, a row in `cabinets.tsv`, Cabin
 | `new <kind> "<note>" <export.md>…` | makes the stamp for each changed export, writes `docs/`, logs it |
 | `verify` | checks every file in `docs/` against its stamp, the log and `cabinets.tsv`; the pre-commit hook runs it |
 | `list` | the current stamp of each doc |
-| `log <alias> [--since <stamp>]` | a doc's stamps, newest first |
+| `log <alias> [--since <stamp>]` | a doc's stamps, newest first; exits 1 for an alias without stamps |
 
 | File | Holds |
 | --- | --- |
