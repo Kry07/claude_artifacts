@@ -7,3 +7,4 @@ a4-27d3b1f1	2026-11-23	-	initial	362eac21876364b6ecd5cf2df40dbff5	first stamp; n
 a5-965c5c4b	2026-11-23	-	initial	43c14453699034f9976f27421d60b923	first stamp; names Base Ant, Embassy, Base Owl, Fabian's Ruleset; DOCS line; art7 released
 a6-f52e66d4	2026-11-23	-	initial	59f1ae6707b6940db98bef42ca1f8202	first stamp; names Base Ant, Embassy, Base Owl, Fabian's Ruleset; DOCS line; art7 released
 a7-445ee718	2026-11-23	-	initial	a4908d5a61484aff65c2e1e45a04e34f	first stamp; names Base Ant, Embassy, Base Owl, Fabian's Ruleset; DOCS line; art7 released
+a0-292d7f28	2026-11-23	a0-0fa220bb	rules	3c13c5b401dd9d7e9a7029ec1d6efeb8	Starting sessions: -i images, list doc states, refresh, respawn; daemon REFRESH/RESPAWN, STATUS stamps; cabinets.tsv via submodule

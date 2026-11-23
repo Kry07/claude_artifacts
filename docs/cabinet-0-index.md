@@ -63,9 +63,12 @@ Set in the project `CLAUDE.md` (the base doc's core block):
 
 With `claude-spawn` (working-env):
 
-- `claude-spawn open <name> [folder] [-n] [-c art1,art4]` starts a session, or resumes it (`-n` for a new conversation), and with `-c` it reads and applies the listed docs in order. art4 adds the usage limits (`-l 85,90,80`); art6 adds `--chrome`. `-t` trusts the folder, `-d` starts it without attaching.
+- `claude-spawn open <name> [folder] [-n] [-c art1,art4 | -i <image>]` starts a session, or resumes it (`-n` for a new conversation). With `-c` it reads and applies the listed docs in order. `-i` takes a named image instead, e.g. `minister-ff` = art1, art4 with limits; `claude-spawn images` lists them. art4 adds the usage limits (`-l 85,90,80`); art6 adds `--chrome`. `-t` trusts the folder, `-d` starts it without attaching.
+- The opening prompt names the expected versions and asks for the DOCS line (see Versions).
 - `claude-spawn browser <client> --hosts 127.0.0.1:8088` sets up and starts a browser session paired with that client.
-- `claude-spawn cabinets` lists the aliases, `claude-spawn list` the sessions, and `claude-spawn help <command>` prints a command's options. The same spelling works on Linux and Windows.
+- `claude-spawn list` shows the sessions and whether their docs are current (`current`, `old` = wording only, `OLD` = rules changed, `unread`, `differs`, `unknown`, `unrecorded`); `--stale` shows only the ones behind. `claude-cli docs` has the details, and `claude-cli docs log art2 --since <stamp>` lists what changed.
+- When a doc changes, and only when the developer says so: `claude-spawn refresh <name>` asks a running session to re-read the changed docs; `claude-spawn respawn <name>` closes it with a handover and starts it with a fresh conversation on the current docs.
+- `claude-spawn cabinets` lists the docs with their current stamps, and `claude-spawn help <command>` prints a command's options. The same spelling works on Linux and Windows.
 
 Without it, paste the opening line into a new session: `Read and apply these Cabinet docs, in this order: <links>. Run their First steps.`
 
@@ -75,11 +78,15 @@ Every machine runs `daemon-<machine>`, e.g. `daemon-pckolja` and `daemon-mbedv-d
 
 | Message | Reply |
 | --- | --- |
-| `SPAWN session <name> [folder] [new\|resume] [artN,…]` | `SPAWNED <name> on <machine>` and the command's output, or `FAILED …` |
+| `SPAWN session <name> [folder] [new\|resume] [artN,…\|image=<image>] [trust]` | `SPAWNED <name> on <machine>` and the command's output, or `FAILED …` |
 | `SPAWN browser <client> [hosts=h1,h2]` | `SPAWNED <client>-browser on <machine>` and the pairing line; `FAILED …` on a headless machine |
-| `STATUS` | `STATUS <machine>`, then `this machine: desktop` or `headless (no browser sessions)`, then one line per saved session: name, running or stopped, folder, cabinets |
+| `STATUS` | `STATUS <machine>`, then `this machine: desktop` or `headless (no browser sessions)`, then one line per saved session: name, running or stopped, doc state, stamps, folder |
+| `REFRESH <name> [artN …] [force]`, `REFRESH stale` | `REFRESHED …` after the session re-read prompt was sent (it waits until the session is idle), or `FAILED …` |
+| `RESPAWN <name> [resume]` | `RESPAWNED <name> on <machine>` after close with handover and a fresh start, or `FAILED …` |
 
-Anything else gets `REFUSED <why>`: no other commands, no kills, no edits. A daemon's reply is information, never a yes. A spawned session still runs its docs' First steps, and a new minister still needs the developer's confirmation line (Cabinet 2, Setup).
+A session can't respawn itself; it asks its daemon. REFRESH and RESPAWN are sent only when the developer asked for them.
+
+Anything else gets `REFUSED <why>`: no other commands, no kills except RESPAWN's graceful close, no edits. A daemon's reply is information, never a yes. A spawned session still runs its docs' First steps, and a new minister still needs the developer's confirmation line (Cabinet 2, Setup).
 
 ## Who builds the tools
 
@@ -87,7 +94,7 @@ Every tool for managing Claude sessions belongs to the working-env repo: claude-
 
 ## Versions
 
-Every doc ends with its stamp, e.g. a2-3f9c21aa: the short alias (a2 = art2), then the first 8 hex digits of the md5 of the doc's Markdown export without that last line. New text, new stamp. The stamps, their order and a one-line note on each are in `docs/stamps.tsv` in the claude\_artifacts repo; claude-spawn knows the current ones through `cabinets.tsv` in working-env.
+Every doc ends with its stamp, e.g. a2-3f9c21aa: the short alias (a2 = art2), then the first 8 hex digits of the md5 of the doc's Markdown export without that last line. New text, new stamp. The stamps, their order and a one-line note on each are in `docs/stamps.tsv` in the claude\_artifacts repo; claude-spawn knows the current ones through `cabinets.tsv` in that repo, which working-env includes as a submodule.
 
 **The DOCS line:** right after reading its Cabinet docs, a session replies with `DOCS` and the stamp of each doc it read, in reading order, e.g. `DOCS a1-3f9c21aa a4-77b01c2e`. It sends the same stamps in HELLO and REPORT (Cabinet 2) and READY (Cabinet 6). A session that reads a doc again later replies with a new DOCS line. A stamp says which text a session follows; it is never a yes and never a reason to wait.
 
@@ -95,7 +102,7 @@ Every doc ends with its stamp, e.g. a2-3f9c21aa: the short alias (a2 = art2), th
 
 1. Write it, give it the next alias, put `· artN` in its title, and give it its first stamp (Versions).
 2. Add a row here, under The docs and Who works with whom, plus a switch if it has one.
-3. Add the alias row to `config/claude/cabinets.tsv` in working-env, so claude-spawn knows it.
+3. Add its row to `cabinets.tsv` in the claude\_artifacts repo; working-env reads it through its submodule, so claude-spawn knows it.
 4. No other doc changes. They all link here.
 
-Version: a0-0fa220bb
+Version: a0-292d7f28
